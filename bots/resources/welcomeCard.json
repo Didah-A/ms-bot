@@ -5,15 +5,16 @@
   "body": [
     {
       "type": "Image",
-      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtB3AwMUeNoq4gUBGe6Ocj8kyh3bXa9ZbV7u1fVKQoyKFHdkqU",
+      "url": "https://res.cloudinary.com/dcfljmapo/image/upload/v1583859590/shutterstock_1071706322-390x285-min_lbtrcd.jpg",
       "size": "stretch"
     },
     {
       "type": "TextBlock",
       "spacing": "medium",
       "size": "default",
+      "color": "attention",
       "weight": "bolder",
-      "text": "Welcome to Bot Framework!",
+      "text": "Welcome to My Weather Bot",
       "wrap": true,
       "maxLines": 0
     },
@@ -21,7 +22,7 @@
       "type": "TextBlock",
       "size": "default",
       "isSubtle": true,
-      "text": "Now that you have successfully run your bot, follow the links in this Adaptive Card to expand your knowledge of Bot Framework.",
+      "text": "Welcome to my simple Weather Bot, It is built using mcrosoft Bot Framework. The bot helps you get the weather for any city in the world.",
       "wrap": true,
       "maxLines": 0
     }
@@ -29,18 +30,9 @@
   "actions": [
     {
       "type": "Action.OpenUrl",
-      "title": "Get an overview",
-      "url": "https://docs.microsoft.com/en-us/azure/bot-service/?view=azure-bot-service-4.0"
-    },
-    {
-      "type": "Action.OpenUrl",
-      "title": "Ask a question",
-      "url": "https://stackoverflow.com/questions/tagged/botframework"
-    },
-    {
-      "type": "Action.OpenUrl",
-      "title": "Learn how to deploy",
-      "url": "https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-deploy-azure?view=azure-bot-service-4.0"
+      "title": "View my Professional portfolio",
+      "url": "https://www.didacusodhiambo.com",
+      "color": "good"
     }
   ]
 }

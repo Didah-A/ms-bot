@@ -49,10 +49,15 @@ class MainDialog extends ComponentDialog {
 
     /**
      * First step in the waterfall dialog. Prompts the user for a command.
-     * Currently, this expects a booking request, like "book me a flight from Paris to Berlin on march 22"
-     * Note that the sample LUIS model will only recognize Paris, Berlin, New York and London as airport cities.
+     * This accepts a weather request command and displays the weather for that city
+     *
      */
     async introStep(stepContext) {
+        const welcomeText = 'Hi there!';
+        const pun = 'What do you call a wet bear? A drizzly bear';
+        await stepContext.context.sendActivity(welcomeText, welcomeText, InputHints.IgnoringInput);
+        await stepContext.context.sendActivity(pun, pun, InputHints.IgnoringInput);
+
         if (!this.luisRecognizer.isConfigured) {
             const messageText = 'NOTE: LUIS is not configured. To enable all capabilities, add `LuisAppId`, `LuisAPIKey` and `LuisAPIHostName` to the .env file.';
             await stepContext.context.sendActivity(messageText, null, InputHints.IgnoringInput);
