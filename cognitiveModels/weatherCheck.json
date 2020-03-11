@@ -1,7 +1,7 @@
 {
   "luis_schema_version": "3.2.0",
   "versionId": "0.1",
-  "name": "weatherCheck",
+  "name": "WeatherCheck",
   "desc": "Luis Model for CoreBot",
   "culture": "en-us",
   "tokenizerVersion": "1.0.0",
@@ -10,7 +10,7 @@
       "name": "Cancel"
     },
     {
-      "name": "checkWeather"
+      "name": "CheckWeather"
     },
     {
       "name": "None"
@@ -68,12 +68,12 @@
   "utterances": [
     {
       "text": "check weather",
-      "intent": "checkWeather",
+      "intent": "CheckWeather",
       "entities": []
     },
     {
-      "text": "check weather for Nairobi",
-      "intent": "checkWeather",
+      "text": "check weather for Nairobi?",
+      "intent": "CheckWeather",
       "entities": [
         {
           "entity": "For",
@@ -83,8 +83,8 @@
       ]
     },
     {
-      "text": "check weather for London",
-      "intent": "checkWeather",
+      "text": "check weather for London?",
+      "intent": "CheckWeather",
       "entities": [
         {
           "entity": "For",
@@ -94,8 +94,8 @@
       ]
     },
     {
-      "text": "check weather for Mombasa",
-      "intent": "checkWeather",
+      "text": "check weather for Mombasa?",
+      "intent": "CheckWeather",
       "entities": [
         {
           "entity": "For",
@@ -120,8 +120,8 @@
       "entities": []
     },
     {
-      "text": "what's the forecast for Nairobi",
-      "intent": "checkWeather",
+      "text": "what's the forecast for Nairobi?",
+      "intent": "CheckWeather",
       "entities": [
         {
           "entity": "For",
@@ -131,8 +131,8 @@
       ]
     },
     {
-      "text": "what's the forecast for London",
-      "intent": "checkWeather",
+      "text": "what's the forecast for London?",
+      "intent": "CheckWeather",
       "entities": [
         {
           "entity": "For",
@@ -142,8 +142,8 @@
       ]
     },
     {
-      "text": "what's the forecast for Mombasa",
-      "intent": "checkWeather",
+      "text": "what's the forecast for Mombasa?",
+      "intent": "CheckWeather",
       "entities": [
         {
           "entity": "For",
