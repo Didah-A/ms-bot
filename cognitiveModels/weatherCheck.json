@@ -1,0 +1,157 @@
+{
+  "luis_schema_version": "3.2.0",
+  "versionId": "0.1",
+  "name": "weatherCheck",
+  "desc": "Luis Model for CoreBot",
+  "culture": "en-us",
+  "tokenizerVersion": "1.0.0",
+  "intents": [
+    {
+      "name": "Cancel"
+    },
+    {
+      "name": "checkWeather"
+    },
+    {
+      "name": "None"
+    }
+  ],
+  "entities": [],
+  "composites": [
+    {
+      "name": "For",
+      "children": [
+        "City"
+      ],
+      "roles": []
+    }
+  ],
+  "closedLists": [
+    {
+      "name": "City",
+      "subLists": [
+        {
+          "canonicalForm": "Nairobi",
+          "list": [
+            "nairobi",
+            "nbo"
+          ]
+        },
+        {
+          "canonicalForm": "London",
+          "list": [
+            "london"
+          ]
+        },
+        {
+          "canonicalForm": "Los Angeles",
+          "list": [
+            "los angeles"
+          ]
+        },
+        {
+          "canonicalForm": "New York",
+          "list": [
+            "new york"
+          ]
+        }
+      ],
+      "roles": []
+    }
+  ],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [],
+  "utterances": [
+    {
+      "text": "check weather",
+      "intent": "checkWeather",
+      "entities": []
+    },
+    {
+      "text": "check weather for Nairobi",
+      "intent": "checkWeather",
+      "entities": [
+        {
+          "entity": "For",
+          "startPos": 18,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "check weather for London",
+      "intent": "checkWeather",
+      "entities": [
+        {
+          "entity": "For",
+          "startPos": 18,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "check weather for Mombasa",
+      "intent": "checkWeather",
+      "entities": [
+        {
+          "entity": "For",
+          "startPos": 18,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "bye",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "cancel booking",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "exit",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "what's the forecast for Nairobi",
+      "intent": "checkWeather",
+      "entities": [
+        {
+          "entity": "For",
+          "startPos": 24,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "what's the forecast for London",
+      "intent": "checkWeather",
+      "entities": [
+        {
+          "entity": "For",
+          "startPos": 24,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "what's the forecast for Mombasa",
+      "intent": "checkWeather",
+      "entities": [
+        {
+          "entity": "For",
+          "startPos": 24,
+          "endPos": 31
+        }
+      ]
+    }
+  ],
+  "settings": []
+}
