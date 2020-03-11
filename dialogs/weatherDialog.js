@@ -5,6 +5,7 @@ const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-
 const { InputHints, MessageFactory } = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
+const { WeatherAPI } = require('../API/weatherAPI');
 
 const CONFIRM_PROMPT = 'confirmPrompt';
 const TEXT_PROMPT = 'textPrompt';
@@ -62,22 +63,19 @@ class WeatherDialog extends CancelAndHelpDialog {
 
         // Capture the results of the previous step
         cityDetails.location = stepContext.result;
-        const messageText = `Confirm you are searching for ${ cityDetails.location }?`;
-        const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-
-        // Offer a YES/NO prompt.
-        return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
+        const GetWeather = new WeatherAPI('new');
+        cityDetails.weather = await GetWeather.getWeatherByCity(cityDetails.location);
+        // const messageText = `Confirm you are searching for ${ cityDetails.location }?`;
+        //     const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+        return await stepContext.next(cityDetails.weather);
     }
 
     /**
      * Complete the interaction and end the dialog.
      */
     async finalStep(stepContext) {
-        if (stepContext.result === true) {
-            const cityDetails = stepContext.options;
-            return await stepContext.endDialog(cityDetails);
-        }
-        return await stepContext.endDialog();
+        const cityDetails = stepContext.options;
+        return await stepContext.endDialog(cityDetails);
     }
 
     isAmbiguous(timex) {

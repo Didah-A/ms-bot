@@ -24,7 +24,6 @@ class WeatherCheckRecognizer {
     }
 
     getCityEntity(result) {
-        console.log(result);
         if (result.entities.$instance.For) return { city: result.entities.$instance.For[0].Airport[0][0] };
     }
 }

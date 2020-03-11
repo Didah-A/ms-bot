@@ -67,7 +67,7 @@
   "patterns": [],
   "utterances": [
     {
-      "text": "check weather",
+      "text": "check the weather",
       "intent": "CheckWeather",
       "entities": []
     },
