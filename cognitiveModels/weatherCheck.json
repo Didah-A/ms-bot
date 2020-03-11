@@ -83,18 +83,18 @@
       ]
     },
     {
-      "text": "check weather for London?",
+      "text": "check the weather for London",
       "intent": "CheckWeather",
       "entities": [
         {
           "entity": "For",
-          "startPos": 18,
-          "endPos": 24
+          "startPos": 22,
+          "endPos": 28
         }
       ]
     },
     {
-      "text": "check weather for Mombasa?",
+      "text": "check weather for Mombasa",
       "intent": "CheckWeather",
       "entities": [
         {

@@ -57,7 +57,7 @@ class MainDialog extends ComponentDialog {
             return await stepContext.next();
         }
 
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'What can I help you with today?\nSay something like "Book a flight from Paris to Berlin on March 22, 2020"';
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'What can I help you with today?\nSay something like "check the weather for London"';
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
     }
@@ -69,7 +69,7 @@ class MainDialog extends ComponentDialog {
     async actStep(stepContext) {
         const cityDetails = {};
 
-        if (this.luisRecognizer.isConfigured) {
+        if (!this.luisRecognizer.isConfigured) {
             // LUIS is not configured, we just run the BookingDialog path.
             return await stepContext.beginDialog('weatherDialog', cityDetails);
         }
@@ -99,13 +99,13 @@ class MainDialog extends ComponentDialog {
             // We haven't implemented the GetWeatherDialog so we just display a TODO message.
             const getWeatherMessageText = 'TODO: get weather flow here';
             await stepContext.context.sendActivity(getWeatherMessageText, getWeatherMessageText, InputHints.IgnoringInput);
-            const forEntities = this.luisRecognizer.getForEntities(luisResult);
+            const forEntities = this.luisRecognizer.getCityEntity(luisResult);
 
             // Show a warning for Origin and Destination if we can't resolve them.
-            await this.showWarningForUnsupportedCities(stepContext.context, forEntities);
+            if (forEntities) await this.showWarningForUnsupportedCities(stepContext.context, forEntities);
 
             // Initialize BookingDetails with any entities we may have found in the response.
-            cityDetails.location = forEntities.airport;
+            if (forEntities) cityDetails.location = forEntities.city;
             console.log('LUIS extracted these booking details:', JSON.stringify(cityDetails));
 
             // Run the BookingDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
@@ -129,7 +129,7 @@ class MainDialog extends ComponentDialog {
      */
     async showWarningForUnsupportedCities(context, forEntities) {
         const unsupportedCities = [];
-        if (forEntities.for && !forEntities.city) {
+        if (forEntities.For && !forEntities.city) {
             unsupportedCities.push(forEntities);
         }
 
@@ -152,7 +152,7 @@ class MainDialog extends ComponentDialog {
             // This is where calls to the booking AOU service or database would go.
 
             // If the call to the booking service was successful tell the user.
-            const msg = `The weather at ${ result.location } today.`;
+            const msg = `The weather at ${ result.location } is hot and sunny today.`;
             await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
         }
 
