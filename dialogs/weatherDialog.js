@@ -18,8 +18,6 @@ class WeatherDialog extends CancelAndHelpDialog {
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
                 this.getCityStep.bind(this),
-                this.originStep.bind(this),
-                this.travelDateStep.bind(this),
                 this.confirmStep.bind(this),
                 this.finalStep.bind(this)
             ]));
