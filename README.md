@@ -1,12 +1,18 @@
-# core-bot
-Demonstrate the core capabilities of the Microsoft Bot Framework
+# Demo
+[link](https://webchat.botframework.com/embed/didah/gemini?b=didah&s=Xa1OncAYinE._zg9HuSkUAYCVCnc6yxlPmjNihvzEKNGcDU1e9UXen4&username=You)
 
-This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to:
+# Weather Bot
+This a weather Bot that shows the weather for any city in the world.
+
+- It has been created using [Bot Framework](https://dev.botframework.com), it shows how to:
 - Use [LUIS](https://www.luis.ai) to implement core AI capabilities
 - Implement a multi-turn conversation using Dialogs
 - Handle user interruptions for such things as `Help` or `Cancel`
 - Prompt for and validate requests for information from the user
 - Demonstrate how to handle any unexpected errors
+
+## screenshots
+![Screenshot 2020-03-12 at 17 17 12](https://user-images.githubusercontent.com/25657649/76530822-581dd700-6485-11ea-8db3-58b0efffe14f.png)
 
 
 ## Prerequisites
@@ -36,24 +42,3 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
 - Launch Bot Framework Emulator
 - File -> Open Bot
 - Enter a Bot URL of `http://localhost:3978/api/messages`
-
-# Deploy the bot to Azure
-After creating the bot and testing it locally, you can deploy it to Azure to make it accessible from anywhere.
-To learn how, see [Deploy your bot to Azure](https://aka.ms/azuredeployment) for a complete set of deployment instructions.
-
-
-# Further reading
-
-- [Bot Framework Documentation](https://docs.botframework.com)
-- [Bot Basics](https://docs.microsoft.com/azure/bot-service/bot-builder-basics?view=azure-bot-service-4.0)
-- [Azure Bot Service Introduction](https://docs.microsoft.com/azure/bot-service/bot-service-overview-introduction?view=azure-bot-service-4.0)
-- [Azure Bot Service Documentation](https://docs.microsoft.com/azure/bot-service/?view=azure-bot-service-4.0)
-- [Azure CLI](https://docs.microsoft.com/cli/azure/?view=azure-cli-latest)
-- [Azure Portal](https://portal.azure.com)
-- [Activity processing](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-concept-activity-processing?view=azure-bot-service-4.0)
-- [Dialogs](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-concept-dialog?view=azure-bot-service-4.0)
-- [Gathering Input Using Prompts](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-prompts?view=azure-bot-service-4.0&tabs=csharp)
-- [Language Understanding using LUIS](https://docs.microsoft.com/en-us/azure/cognitive-services/luis/)
-- [Channels and Bot Connector Service](https://docs.microsoft.com/en-us/azure/bot-service/bot-concepts?view=azure-bot-service-4.0)
-- [Restify](https://www.npmjs.com/package/restify)
-- [dotenv](https://www.npmjs.com/package/dotenv)
