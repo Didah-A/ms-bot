@@ -40,34 +40,23 @@ class WeatherDialog extends CancelAndHelpDialog {
         return await stepContext.next(cityDetails.location);
     }
 
-    // /**
-    //  * If a travel date has not been provided, prompt for one.
-    //  * This will use the DATE_RESOLVER_DIALOG.
-    //  */
-    // async travelDateStep(stepContext) {
-    //     const bookingDetails = stepContext.options;
-
-    //     // Capture the results of the previous step
-    //     bookingDetails.origin = stepContext.result;
-    //     if (!bookingDetails.travelDate || this.isAmbiguous(bookingDetails.travelDate)) {
-    //         return await stepContext.beginDialog(DATE_RESOLVER_DIALOG, { date: bookingDetails.travelDate });
-    //     }
-    //     return await stepContext.next(bookingDetails.travelDate);
-    // }
-
     /**
      * Confirm the information the user has provided.
      */
     async confirmStep(stepContext) {
-        const cityDetails = stepContext.options;
+        try {
+            const cityDetails = stepContext.options;
 
-        // Capture the results of the previous step
-        cityDetails.location = stepContext.result;
-        const GetWeather = new WeatherAPI('new');
-        cityDetails.weather = await GetWeather.getWeatherByCity(cityDetails.location);
-        // const messageText = `Confirm you are searching for ${ cityDetails.location }?`;
-        //     const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-        return await stepContext.next(cityDetails.weather);
+            // Capture the results of the previous step
+            cityDetails.location = stepContext.result;
+            const GetWeather = new WeatherAPI('new');
+            cityDetails.weather = await GetWeather.getWeatherByCity(cityDetails.location);
+            return await stepContext.next(cityDetails.weather);
+        } catch {
+            const didntUnderstandMessageText = 'Sorry, I couldn\'t find that. Please enter a valid City';
+            await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
+            return await stepContext.endDialog();
+        }
     }
 
     /**

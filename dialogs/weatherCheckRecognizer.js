@@ -24,7 +24,7 @@ class WeatherCheckRecognizer {
     }
 
     getCityEntity(result) {
-        if (result.entities.$instance.For) return { city: result.entities.$instance.For[0].Airport[0][0] };
+        if (result.entities.$instance.City) return { city: result.entities.$instance.City[0].text };
     }
 }
 
