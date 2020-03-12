@@ -1,0 +1,33 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "TextBlock",
+      "spacing": "medium",
+      "size": "default",
+      "weight": "bolder",
+      "color": "accent",
+      "text": "WEATHER BOT HELPER",
+      "wrap": true,
+      "maxLines": 0
+    },
+    {
+      "type": "TextBlock",
+      "size": "default",
+      "isSubtle": true,
+      "text": "For the best results try the utterances below",
+      "wrap": true,
+      "maxLines": 0
+    },
+    {
+      "type": "TextBlock",
+      "size": "default",
+      "isSubtle": true,
+      "text": "- _check the weather_ \r- _check the Weather for Nairobi_ \r - _Check the weather for London_ \r - _What's the forecast for Nairobi_ \r - _What's the weather for Dubai_ \r - _get me the weather forecast_",
+      "wrap": true,
+      "maxLines": 0
+    }
+  ]
+}

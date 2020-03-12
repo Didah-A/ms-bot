@@ -1,5 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+
 const { MessageFactory, InputHints } = require('botbuilder');
 const { LuisRecognizer } = require('botbuilder-ai');
 const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
@@ -7,18 +6,25 @@ const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialo
 const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
 
 class MainDialog extends ComponentDialog {
-    constructor(luisRecognizer, weatherDialog) {
+    constructor(luisRecognizer, weatherDialog, helpDialog) {
         super('MainDialog');
 
         if (!luisRecognizer) throw new Error('[MainDialog]: Missing parameter \'luisRecognizer\' is required');
         this.luisRecognizer = luisRecognizer;
 
-        if (!weatherDialog) throw new Error('[MainDialog]: Missing parameter \'bookingDialog\' is required');
+        if (!weatherDialog) throw new Error('[MainDialog]: Missing parameter \'weatherDialog\' is required');
 
-        // Define the main dialog and its related components.
-        // This is a sample "book a flight" dialog.
+        if (!helpDialog) throw new Error('[MainDialog]: Missing parameter \'helpDialog\' is required');
+
+        /**
+         * Define the main dialog and its related components.
+         * This is a sample "check for weather" dialog.
+         *
+         * */
+
         this.addDialog(new TextPrompt('TextPrompt'))
             .addDialog(weatherDialog)
+            .addDialog(helpDialog)
             .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
                 this.introStep.bind(this),
                 this.actStep.bind(this),
@@ -57,7 +63,7 @@ class MainDialog extends ComponentDialog {
             return await stepContext.next();
         }
 
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'What can I help you with today?\nSay something like "check the weather for London"';
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'What can I help you with today?\nSay something like "_check the weather for London_" or "_Help_"';
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
     }
@@ -70,11 +76,11 @@ class MainDialog extends ComponentDialog {
         const cityDetails = {};
 
         if (!this.luisRecognizer.isConfigured) {
-            // LUIS is not configured, we just run the BookingDialog path.
+            /* LUIS is not configured, we just run the BookingDialog path. */
             return await stepContext.beginDialog('weatherDialog', cityDetails);
         }
 
-        // Call LUIS and gather any potential booking details. (Note the TurnContext has the response to the prompt)
+        /* Call LUIS and gather any potential city details. (Note the TurnContext has the response to the prompt) */
         const luisResult = await this.luisRecognizer.executeLuisQuery(stepContext.context);
         switch (LuisRecognizer.topIntent(luisResult)) {
         case 'CheckWeather': {
@@ -87,8 +93,12 @@ class MainDialog extends ComponentDialog {
             return await stepContext.beginDialog('weatherDialog', cityDetails);
         }
 
+        case 'Help' : {
+            return await stepContext.beginDialog('helpDialog', {});
+        }
+
         default: {
-            // Catch all for unhandled intents
+            /* Catch all for unhandled intents */
             const didntUnderstandMessageText = 'Sorry, I didn\'t get that. Please try asking in a different way eg, "check weather, check the weather for Nairobi"';
             await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
         }
@@ -102,14 +112,17 @@ class MainDialog extends ComponentDialog {
      * It wraps up the sample "book a flight" interaction with a simple confirmation.
      */
     async finalStep(stepContext) {
-        // If the child dialog ("bookingDialog") was cancelled or the user failed to confirm, the Result here will be null.
+        const convertToTitleCase = (text) => (text[0].toUpperCase() + text.slice(1));
+
         if (stepContext.result) {
             const result = stepContext.result;
-            const msg = `The weather at ${ result.location } is ${ result.weather.description } today.`;
+            console.log(result);
+            const temp = Math.floor(result.weather.temp - 273.15);
+            const msg = `The weather in **${ convertToTitleCase(result.location) }** is **${ result.weather.weather.description }** and the temprature is **${ temp }**° Celsius today.`;
             await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
         }
 
-        // Restart the main dialog with a different message the second time around
+        /* Restart the main dialog with a different message the second time around */
         return await stepContext.replaceDialog(this.initialDialogId, { restartMsg: 'What else can I do for you?' });
     }
 }

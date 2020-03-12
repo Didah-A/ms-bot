@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
 const { InputHints, MessageFactory } = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
@@ -19,7 +18,7 @@ class WeatherDialog extends CancelAndHelpDialog {
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
                 this.getCityStep.bind(this),
-                this.confirmStep.bind(this),
+                this.getWeather.bind(this),
                 this.finalStep.bind(this)
             ]));
 
@@ -27,7 +26,7 @@ class WeatherDialog extends CancelAndHelpDialog {
     }
 
     /**
-     * If a destination city has not been provided, prompt for one.
+     * If a city has not been provided, prompt for one.
      */
     async getCityStep(stepContext) {
         const cityDetails = stepContext.options;
@@ -43,11 +42,11 @@ class WeatherDialog extends CancelAndHelpDialog {
     /**
      * Confirm the information the user has provided.
      */
-    async confirmStep(stepContext) {
+    async getWeather(stepContext) {
         try {
             const cityDetails = stepContext.options;
 
-            // Capture the results of the previous step
+            /* Capture the results of the previous step */
             cityDetails.location = stepContext.result;
             const GetWeather = new WeatherAPI('new');
             cityDetails.weather = await GetWeather.getWeatherByCity(cityDetails.location);
@@ -65,11 +64,6 @@ class WeatherDialog extends CancelAndHelpDialog {
     async finalStep(stepContext) {
         const cityDetails = stepContext.options;
         return await stepContext.endDialog(cityDetails);
-    }
-
-    isAmbiguous(timex) {
-        const timexPropery = new TimexProperty(timex);
-        return !timexPropery.types.has('definite');
     }
 }
 

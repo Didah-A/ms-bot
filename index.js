@@ -17,9 +17,11 @@ const { WeatherCheckRecognizer } = require('./dialogs/WeatherCheckRecognizer');
 const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
 const { MainDialog } = require('./dialogs/mainDialog');
 
-// the bot's booking dialog
+// the bot's weather dialog
 const { WeatherDialog } = require('./dialogs/weatherDialog');
+const { HelpDialog } = require('./dialogs/helpDialog');
 const WEATHER_DIALOG = 'weatherDialog';
+const HELP_DIALOG = 'helpDialog';
 
 // Note: Ensure you have a .env file and include LuisAppId, LuisAPIKey and LuisAPIHostName.
 const ENV_FILE = path.join(__dirname, '.env');
@@ -74,7 +76,8 @@ const luisRecognizer = new WeatherCheckRecognizer(luisConfig);
 
 // Create the main dialog.
 const weatherDialog = new WeatherDialog(WEATHER_DIALOG);
-const dialog = new MainDialog(luisRecognizer, weatherDialog);
+const helpDialog = new HelpDialog(HELP_DIALOG);
+const dialog = new MainDialog(luisRecognizer, weatherDialog, helpDialog);
 const bot = new DialogAndWelcomeBot(conversationState, userState, dialog);
 
 // Create HTTP server

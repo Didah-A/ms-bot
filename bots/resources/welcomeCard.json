@@ -5,7 +5,7 @@
   "body": [
     {
       "type": "Image",
-      "url": "https://res.cloudinary.com/dcfljmapo/image/upload/v1583859590/shutterstock_1071706322-390x285-min_lbtrcd.jpg",
+      "url": "https://res.cloudinary.com/dcfljmapo/image/upload/v1583863820/giphybot_vgpsvn.gif",
       "size": "stretch"
     },
     {
@@ -22,7 +22,7 @@
       "type": "TextBlock",
       "size": "default",
       "isSubtle": true,
-      "text": "Welcome to my simple Weather Bot, It is built using mcrosoft Bot Framework. The bot helps you get the weather for any city in the world.",
+      "text": "Welcome to my simple Weather Bot, It is built using microsoft Bot Framework. The bot helps you get the weather for any city in the world.",
       "wrap": true,
       "maxLines": 0
     }
