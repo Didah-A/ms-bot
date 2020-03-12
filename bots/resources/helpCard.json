@@ -2,6 +2,7 @@
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "type": "AdaptiveCard",
   "version": "1.0",
+  "backgroundImage":"https://res.cloudinary.com/dcfljmapo/image/upload/v1584015592/botback_wyqbp5.png",
   "body": [
     {
       "type": "TextBlock",

@@ -2,6 +2,7 @@
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "type": "AdaptiveCard",
   "version": "1.0",
+  "backgroundImage":"https://res.cloudinary.com/dcfljmapo/image/upload/v1584015689/botback_p4jbvu.png",
   "body": [
     {
       "type": "Image",
@@ -12,7 +13,7 @@
       "type": "TextBlock",
       "spacing": "medium",
       "size": "default",
-      "color": "attention",
+      "color":"white",
       "weight": "bolder",
       "text": "Welcome to My Weather Bot",
       "wrap": true,
