@@ -1,3 +1,6 @@
+# Demo
+[link](https://webchat.botframework.com/embed/didah/gemini?b=didah&s=Xa1OncAYinE._zg9HuSkUAYCVCnc6yxlPmjNihvzEKNGcDU1e9UXen4&username=You)
+
 # core-bot
 Demonstrate the core capabilities of the Microsoft Bot Framework
 
