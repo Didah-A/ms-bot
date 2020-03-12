@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
 const { CardFactory } = require('botbuilder');
 const { DialogBot } = require('./dialogBot');
 const WelcomeCard = require('./resources/welcomeCard.json');
@@ -19,7 +16,7 @@ class DialogAndWelcomeBot extends DialogBot {
                 }
             }
 
-            // By calling next() you ensure that the next BotHandler is run.
+            /* By calling next() you ensure that the next BotHandler is run. */
             await next();
         });
     }

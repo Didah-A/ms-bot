@@ -1,4 +1,3 @@
-
 const { MessageFactory, InputHints } = require('botbuilder');
 const { LuisRecognizer } = require('botbuilder-ai');
 const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
@@ -63,20 +62,20 @@ class MainDialog extends ComponentDialog {
             return await stepContext.next();
         }
 
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'What can I help you with today?\nSay something like "_check the weather for London_" or "_Help_"';
-        const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'Hi there! What can I help you with today?\nSay something like "_check the weather for London_" or "_Help_"';
+        const promptMessage = MessageFactory.suggestedActions(['check the weather', 'Help'], messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
     }
 
     /**
      * Second step in the waterfall.  This will use LUIS to attempt to extract the origin, destination and travel dates.
-     * Then, it hands off to the bookingDialog child dialog to collect any remaining details.
+     * Then, it hands off to the weatherDialog child dialog to collect any remaining details.
      */
     async actStep(stepContext) {
         const cityDetails = {};
 
         if (!this.luisRecognizer.isConfigured) {
-            /* LUIS is not configured, we just run the BookingDialog path. */
+            /* LUIS is not configured, we just run the weatherDialog path. */
             return await stepContext.beginDialog('weatherDialog', cityDetails);
         }
 
@@ -116,7 +115,6 @@ class MainDialog extends ComponentDialog {
 
         if (stepContext.result) {
             const result = stepContext.result;
-            console.log(result);
             const temp = Math.floor(result.weather.temp - 273.15);
             const msg = `The weather in **${ convertToTitleCase(result.location) }** is **${ result.weather.weather.description }** and the temprature is **${ temp }**° Celsius today.`;
             await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);

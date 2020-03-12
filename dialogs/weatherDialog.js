@@ -32,8 +32,8 @@ class WeatherDialog extends CancelAndHelpDialog {
         const cityDetails = stepContext.options;
 
         if (!cityDetails.location) {
-            const messageText = 'What city would you like to search the weather for?';
-            const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+            const messageText = 'Which city would you like to search the weather for?';
+            const msg = MessageFactory.suggestedActions(['Nairobi', 'Dubai', 'London', 'Lagos'], messageText, InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
         return await stepContext.next(cityDetails.location);
