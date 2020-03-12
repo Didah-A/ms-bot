@@ -1,15 +1,18 @@
 # Demo
 [link](https://webchat.botframework.com/embed/didah/gemini?b=didah&s=Xa1OncAYinE._zg9HuSkUAYCVCnc6yxlPmjNihvzEKNGcDU1e9UXen4&username=You)
 
-# core-bot
-Demonstrate the core capabilities of the Microsoft Bot Framework
+# Weather Bot
+This a weather Bot that shows the weather for any city in the world.
 
-This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to:
+- It has been created using [Bot Framework](https://dev.botframework.com), it shows how to:
 - Use [LUIS](https://www.luis.ai) to implement core AI capabilities
 - Implement a multi-turn conversation using Dialogs
 - Handle user interruptions for such things as `Help` or `Cancel`
 - Prompt for and validate requests for information from the user
 - Demonstrate how to handle any unexpected errors
+
+## screenshots
+![Screenshot 2020-03-12 at 17 17 12](https://user-images.githubusercontent.com/25657649/76530822-581dd700-6485-11ea-8db3-58b0efffe14f.png)
 
 
 ## Prerequisites
