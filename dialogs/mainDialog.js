@@ -62,7 +62,7 @@ class MainDialog extends ComponentDialog {
             return await stepContext.next();
         }
 
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'Hi there! What can I help you with today?\nSay something like "_check the weather for London_" or "_Help_"';
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'Hi there! What can I help you with today?\nSay something like "**check the weather for London**" or "**Help**"';
         const promptMessage = MessageFactory.suggestedActions(['check the weather', 'Help'], messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
     }
