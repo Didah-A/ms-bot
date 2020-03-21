@@ -4,21 +4,21 @@
 const { InputHints, MessageFactory } = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
-const { WeatherAPI } = require('../API/weatherAPI');
+const { Covid19API } = require('../API/covid19API');
 
 const CONFIRM_PROMPT = 'confirmPrompt';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
 
-class WeatherDialog extends CancelAndHelpDialog {
+class Covid19Dialog extends CancelAndHelpDialog {
     constructor(id) {
-        super(id || 'weatherDialog');
+        super(id || 'covid19Dialog');
 
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
-                this.getCityStep.bind(this),
-                this.getWeather.bind(this),
+                this.getCountryCode.bind(this),
+                this.getCovid19Stats.bind(this),
                 this.finalStep.bind(this)
             ]));
 
@@ -28,31 +28,31 @@ class WeatherDialog extends CancelAndHelpDialog {
     /**
      * If a city has not been provided, prompt for one.
      */
-    async getCityStep(stepContext) {
-        const cityDetails = stepContext.options;
+    async getCountryCode(stepContext) {
+        const countryDetails = stepContext.options;
 
-        if (!cityDetails.location) {
-            const messageText = 'Which city would you like to search the weather for?';
-            const msg = MessageFactory.suggestedActions(['Nairobi', 'Dubai', 'London', 'Lagos'], messageText, InputHints.ExpectingInput);
+        if (!countryDetails.name) {
+            const messageText = 'Which country do you want to search the statistics for?';
+            const msg = MessageFactory.suggestedActions(['Kenya', 'USA', 'UK', 'Italy'], messageText, InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
-        return await stepContext.next(cityDetails.location);
+        return await stepContext.next(countryDetails.name);
     }
 
     /**
      * Confirm the information the user has provided.
      */
-    async getWeather(stepContext) {
+    async getCovid19Stats(stepContext) {
         try {
-            const cityDetails = stepContext.options;
+            const countryDetails = stepContext.options;
 
             /* Capture the results of the previous step */
-            cityDetails.location = stepContext.result;
-            const GetWeather = new WeatherAPI('new');
-            cityDetails.weather = await GetWeather.getWeatherByCity(cityDetails.location);
-            return await stepContext.next(cityDetails.weather);
+            countryDetails.name = stepContext.result;
+            const GetStatistics = new Covid19API();
+            countryDetails.stats = await GetStatistics.getCovid19StatsByCountry(countryDetails.name);
+            return await stepContext.next(countryDetails.stats);
         } catch {
-            const didntUnderstandMessageText = 'Sorry, I couldn\'t find that. Please enter a valid City';
+            const didntUnderstandMessageText = 'Sorry, I couldn\'t find that. Please enter a valid Country name';
             await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
             return await stepContext.endDialog();
         }
@@ -62,9 +62,9 @@ class WeatherDialog extends CancelAndHelpDialog {
      * Complete the interaction and end the dialog.
      */
     async finalStep(stepContext) {
-        const cityDetails = stepContext.options;
-        return await stepContext.endDialog({ weather: cityDetails });
+        const countryDetails = stepContext.options;
+        return await stepContext.endDialog({ statistics: countryDetails });
     }
 }
 
-module.exports.WeatherDialog = WeatherDialog;
+module.exports.Covid19Dialog = Covid19Dialog;

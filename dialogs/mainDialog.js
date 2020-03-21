@@ -5,7 +5,7 @@ const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialo
 const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
 
 class MainDialog extends ComponentDialog {
-    constructor(luisRecognizer, weatherDialog, helpDialog) {
+    constructor(luisRecognizer, weatherDialog, helpDialog, covid19Dialog) {
         super('MainDialog');
 
         if (!luisRecognizer) throw new Error('[MainDialog]: Missing parameter \'luisRecognizer\' is required');
@@ -14,6 +14,8 @@ class MainDialog extends ComponentDialog {
         if (!weatherDialog) throw new Error('[MainDialog]: Missing parameter \'weatherDialog\' is required');
 
         if (!helpDialog) throw new Error('[MainDialog]: Missing parameter \'helpDialog\' is required');
+
+        if (!covid19Dialog) throw new Error('[MainDialog]: Missing parameter \'covid19Dialog\' is required');
 
         /**
          * Define the main dialog and its related components.
@@ -24,6 +26,7 @@ class MainDialog extends ComponentDialog {
         this.addDialog(new TextPrompt('TextPrompt'))
             .addDialog(weatherDialog)
             .addDialog(helpDialog)
+            .addDialog(covid19Dialog)
             .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
                 this.introStep.bind(this),
                 this.actStep.bind(this),
@@ -73,6 +76,7 @@ class MainDialog extends ComponentDialog {
      */
     async actStep(stepContext) {
         const cityDetails = {};
+        const countryDetails = {};
 
         if (!this.luisRecognizer.isConfigured) {
             /* LUIS is not configured, we just run the weatherDialog path. */
@@ -90,6 +94,16 @@ class MainDialog extends ComponentDialog {
 
             /* Run the weatherDialog passing in whatever details we have from the LUIS call, it will fill out the remainder. **/
             return await stepContext.beginDialog('weatherDialog', cityDetails);
+        }
+
+        case 'checkCovid19Stat': {
+            const CountryEntities = this.luisRecognizer.getCountryCode(luisResult);
+
+            /* Initialize the city Details with any entities we may have found in the response. */
+            if (CountryEntities) countryDetails.name = CountryEntities.country;
+
+            /* Run the weatherDialog passing in whatever details we have from the LUIS call, it will fill out the remainder. **/
+            return await stepContext.beginDialog('covid19Dialog', countryDetails);
         }
 
         case 'Help' : {
@@ -113,11 +127,29 @@ class MainDialog extends ComponentDialog {
     async finalStep(stepContext) {
         const convertToTitleCase = (text) => (text[0].toUpperCase() + text.slice(1));
 
-        if (stepContext.result) {
-            const result = stepContext.result;
+        if (!stepContext.result) return await stepContext.replaceDialog(this.initialDialogId, { restartMsg: 'What else can I do for you?' });
+
+        if (stepContext.result.weather) {
+            const result = stepContext.result.weather;
             const temp = Math.floor(result.weather.temp - 273.15);
             const msg = `The weather in **${ convertToTitleCase(result.location) }** is **${ result.weather.weather.description }** and the temprature is **${ temp }**° Celsius today.`;
             await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
+        }
+
+        const handleCovidWrongInput = async (results) => {
+            if (!results.stats) {
+                const msg = 'Sorry, country stats not found, please try again later or search for another country!';
+                return await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
+            }
+        };
+
+        if (stepContext.result.statistics) {
+            const result = stepContext.result.statistics;
+            await handleCovidWrongInput(result);
+            if (result.stats) {
+                const msg = `Latest COVID-19 statistics for **${ convertToTitleCase(result.name) }**  ==> **confirmed cases: ${ result.stats.confirmed }** || **Deaths: ${ result.stats.deaths }** || **Recoveries: ${ result.stats.recovered }**.`;
+                await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
+            }
         }
 
         /* Restart the main dialog with a different message the second time around */
