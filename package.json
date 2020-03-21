@@ -19,7 +19,7 @@
         "axios": "^0.19.2",
         "botbuilder": "~4.6.1",
         "botbuilder-ai": "~4.6.1",
-        "botbuilder-dialogs": "~4.6.1",
+        "botbuilder-dialogs": "^4.8.0",
         "dotenv": "^8.2.0",
         "restify": "~8.4.0"
     },
