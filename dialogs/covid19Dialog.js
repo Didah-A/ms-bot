@@ -5,7 +5,7 @@ const { InputHints, MessageFactory } = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { Covid19API } = require('../API/covid19API');
-const { countries } = require('../bots/resources/countries.js');
+const { countries } = require('./countries.js');
 const sortedCountries = countries.countries.sort((a, b) => a.name - b.name);
 
 const CONFIRM_PROMPT = 'confirmPrompt';
