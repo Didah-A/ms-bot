@@ -5,6 +5,8 @@ const { InputHints, MessageFactory } = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { Covid19API } = require('../API/covid19API');
+const { countries } = require('../bots/resources/countries.js');
+const sortedCountries = countries.countries.sort((a, b) => a.name - b.name);
 
 const CONFIRM_PROMPT = 'confirmPrompt';
 const TEXT_PROMPT = 'textPrompt';
@@ -23,6 +25,10 @@ class Covid19Dialog extends CancelAndHelpDialog {
             ]));
 
         this.initialDialogId = WATERFALL_DIALOG;
+    }
+
+    getISOcode(input) {
+        for (let i = 0; i < sortedCountries.length; i++) if (sortedCountries[i].name.toLowerCase() === input.toLowerCase()) return sortedCountries[i]['alpha-2'];
     }
 
     /**
@@ -46,10 +52,12 @@ class Covid19Dialog extends CancelAndHelpDialog {
         try {
             const countryDetails = stepContext.options;
 
+            const countryCode = this.getISOcode(stepContext.result);
+
             /* Capture the results of the previous step */
             countryDetails.name = stepContext.result;
             const GetStatistics = new Covid19API();
-            countryDetails.stats = await GetStatistics.getCovid19StatsByCountry(countryDetails.name);
+            countryDetails.stats = await GetStatistics.getCovid19StatsByCountry(countryCode);
             return await stepContext.next(countryDetails.stats);
         } catch {
             const didntUnderstandMessageText = 'Sorry, I couldn\'t find that. Please enter a valid Country name';

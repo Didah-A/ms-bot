@@ -1,4 +1,4 @@
-const { CardFactory } = require('botbuilder');
+const { CardFactory, InputHints } = require('botbuilder');
 const { TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const HelpCard = require('../bots/resources/helpCard.json');
@@ -20,6 +20,8 @@ class HelpDialog extends CancelAndHelpDialog {
     }
 
     async displayCard(stepContext) {
+        const saySomething = 'Say something like "**Get corona virus statistics** or **check the weather for London**" to get the best results';
+        await stepContext.context.sendActivity(saySomething, saySomething, InputHints.IgnoringInput);
         const helpCard = CardFactory.adaptiveCard(HelpCard);
         await stepContext.context.sendActivity({ attachments: [helpCard] });
         return await stepContext.endDialog();

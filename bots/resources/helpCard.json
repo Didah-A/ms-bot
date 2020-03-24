@@ -10,7 +10,7 @@
       "size": "default",
       "weight": "bolder",
       "color": "accent",
-      "text": "WEATHER BOT HELPER",
+      "text": "Crystal's Help Card",
       "wrap": true,
       "maxLines": 0
     },
@@ -26,7 +26,7 @@
       "type": "TextBlock",
       "size": "default",
       "isSubtle": true,
-      "text": "- _check the weather_ \r- _check the Weather for Nairobi_ \r - _Check the weather for London_ \r - _What's the forecast for Nairobi_ \r - _What's the weather for Dubai_ \r - _get me the weather forecast_",
+      "text": "- COVID-19 statistics \r- corona virus statistics \r - whats the corona virus stats for Kenya \r - covid 19 \r - What's the weather for Dubai \r - get me the weather forecast",
       "wrap": true,
       "maxLines": 0
     }

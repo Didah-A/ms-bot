@@ -65,8 +65,8 @@ class MainDialog extends ComponentDialog {
             return await stepContext.next();
         }
 
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'Hi there! What can I help you with today?\nSay something like "**check the weather for London**" or "**Help**"';
-        const promptMessage = MessageFactory.suggestedActions(['check the weather', 'Help'], messageText, InputHints.ExpectingInput);
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'Hi there! My name is Crystal. What can I help you with today?';
+        const promptMessage = MessageFactory.suggestedActions(['Get Corona Virus statistics', 'Check the weather', 'Help'], messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
     }
 
@@ -147,7 +147,7 @@ class MainDialog extends ComponentDialog {
             const result = stepContext.result.statistics;
             await handleCovidWrongInput(result);
             if (result.stats) {
-                const msg = `Latest COVID-19 statistics for **${ convertToTitleCase(result.name) }**  ==> **confirmed cases: ${ result.stats.confirmed }** || **Deaths: ${ result.stats.deaths }** || **Recoveries: ${ result.stats.recovered }**.`;
+                const msg = `Latest Corona Virus statistics for **${ convertToTitleCase(result.name) }**  \r - **confirmed cases: ${ result.stats.confirmed }** \r - **Deaths: ${ result.stats.deaths }** \r - **Recoveries: ${ result.stats.recovered }**.`;
                 await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
             }
         }
