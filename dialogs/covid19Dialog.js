@@ -34,7 +34,7 @@ class Covid19Dialog extends CancelAndHelpDialog {
 
         if (!countryDetails.name) {
             const messageText = 'Which country do you want to search the statistics for?';
-            const msg = MessageFactory.suggestedActions(['Kenya', 'United States of America', 'United Kingdom', 'Italy'], messageText, InputHints.ExpectingInput);
+            const msg = MessageFactory.suggestedActions(['Kenya', 'USA', 'United Kingdom', 'Italy'], messageText, InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
         return await stepContext.next(countryDetails.name);
@@ -46,11 +46,13 @@ class Covid19Dialog extends CancelAndHelpDialog {
     async getCovid19Stats(stepContext) {
         try {
             const countryDetails = stepContext.options;
+            countryDetails.name = stepContext.result;
 
-            const countryCode = countries.get(stepContext.result.toLowerCase());
+            if (stepContext.result.toLowerCase() === 'usa') { countryDetails.name = 'United States of America'; }
+
+            const countryCode = countries.get(countryDetails.name.toLowerCase());
 
             /* Capture the results of the previous step */
-            countryDetails.name = stepContext.result;
             const GetStatistics = new Covid19API();
             countryDetails.stats = await GetStatistics.getCovid19StatsByCountry(countryCode);
             return await stepContext.next(countryDetails.stats);
