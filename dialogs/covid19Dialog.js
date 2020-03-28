@@ -5,6 +5,7 @@ const { InputHints, MessageFactory } = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { Covid19API } = require('../API/covid19API');
+const { countries } = require('./countries.js');
 
 const CONFIRM_PROMPT = 'confirmPrompt';
 const TEXT_PROMPT = 'textPrompt';
@@ -17,7 +18,7 @@ class Covid19Dialog extends CancelAndHelpDialog {
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
-                this.getCountryCode.bind(this),
+                this.getCountry.bind(this),
                 this.getCovid19Stats.bind(this),
                 this.finalStep.bind(this)
             ]));
@@ -28,12 +29,12 @@ class Covid19Dialog extends CancelAndHelpDialog {
     /**
      * If a city has not been provided, prompt for one.
      */
-    async getCountryCode(stepContext) {
+    async getCountry(stepContext) {
         const countryDetails = stepContext.options;
 
         if (!countryDetails.name) {
             const messageText = 'Which country do you want to search the statistics for?';
-            const msg = MessageFactory.suggestedActions(['Kenya', 'USA', 'UK', 'Italy'], messageText, InputHints.ExpectingInput);
+            const msg = MessageFactory.suggestedActions(['Kenya', 'United States of America', 'United Kingdom', 'Italy'], messageText, InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
         return await stepContext.next(countryDetails.name);
@@ -46,13 +47,15 @@ class Covid19Dialog extends CancelAndHelpDialog {
         try {
             const countryDetails = stepContext.options;
 
+            const countryCode = countries.get(stepContext.result.toLowerCase());
+
             /* Capture the results of the previous step */
             countryDetails.name = stepContext.result;
             const GetStatistics = new Covid19API();
-            countryDetails.stats = await GetStatistics.getCovid19StatsByCountry(countryDetails.name);
+            countryDetails.stats = await GetStatistics.getCovid19StatsByCountry(countryCode);
             return await stepContext.next(countryDetails.stats);
         } catch {
-            const didntUnderstandMessageText = 'Sorry, I couldn\'t find that. Please enter a valid Country name';
+            const didntUnderstandMessageText = 'Sorry, I couldn\'t find that. Please enter a valid full Country name';
             await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
             return await stepContext.endDialog();
         }
