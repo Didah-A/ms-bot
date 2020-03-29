@@ -1,5 +1,5 @@
-# Demo
-[link](https://webchat.botframework.com/embed/didah?s=26kGR_R81uY.v3IowE4WMVIG0R1KVVJuuATF58OSbvbXo46vsFazjyQ)
+
+view the bot [here](https://webchat.botframework.com/embed/didah?s=26kGR_R81uY.v3IowE4WMVIG0R1KVVJuuATF58OSbvbXo46vsFazjyQ)
 
 # Covid-19 statistics and Weather updates Bot
 This a Covid-19 statistics and Weather updates Bot.
