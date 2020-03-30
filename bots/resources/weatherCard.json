@@ -1,0 +1,36 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+      {
+          "type": "TextBlock",
+          "spacing": "medium",
+          "size": "default",
+          "weight": "bolder",
+          "color": "accent",
+          "text": "Weather forecast for Nairobi",
+          "wrap": true,
+          "maxLines": 0
+      },
+      {
+          "type": "TextBlock",
+          "text": "Scattered Clouds",
+          "separator": true,
+          "weight": "Bolder"
+      },
+      {
+          "type": "TextBlock",
+          "text": "Temprature: 25 celcius",
+          "fontType": "Monospace"
+      },
+      {
+          "type": "Image",
+          "altText": "",
+          "url": "https://res.cloudinary.com/dcfljmapo/image/upload/v1585564936/weather02-512_nyklyd.png",
+          "spacing": "Small",
+          "size": "Small",
+          "horizontalAlignment": "Right"
+      }
+  ]
+}

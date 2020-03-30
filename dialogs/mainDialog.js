@@ -2,6 +2,7 @@ const { MessageFactory, InputHints, CardFactory } = require('botbuilder');
 const { LuisRecognizer } = require('botbuilder-ai');
 const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const StatsCard = require('../bots/resources/statsCard.json');
+const WeatherCard = require('../bots/resources/weatherCard.json');
 
 const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
 
@@ -137,8 +138,11 @@ class MainDialog extends ComponentDialog {
         if (stepContext.result.weather) {
             const result = stepContext.result.weather;
             const temp = Math.floor(result.weather.temp - 273.15);
-            const msg = `The weather in **${ convertToTitleCase(result.location) }** is **${ result.weather.weather.description }** and the temprature is **${ temp }**° Celsius today.`;
-            await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
+            WeatherCard.body[0].text = `Weather Forecast for ${ convertToTitleCase(result.location) }`;
+            WeatherCard.body[1].text = convertToTitleCase(result.weather.weather.description);
+            WeatherCard.body[2].text = `Temperature: ${ temp }° Celsius today`;
+            const weatherCard = CardFactory.adaptiveCard(WeatherCard);
+            await stepContext.context.sendActivity({ attachments: [weatherCard] });
         }
 
         const handleCovidWrongInput = async (results) => {

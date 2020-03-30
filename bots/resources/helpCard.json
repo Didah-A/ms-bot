@@ -6,10 +6,10 @@
   "body": [
       {
           "type": "TextBlock",
-          "spacing": "Medium",
+          "spacing": "medium",
           "size": "default",
-          "weight": "Bolder",
-          "color": "Accent",
+          "weight": "bolder",
+          "color": "accent",
           "text": "Help Card",
           "wrap": true,
           "maxLines": 0
