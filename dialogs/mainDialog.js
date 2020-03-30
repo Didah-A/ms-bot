@@ -1,6 +1,7 @@
-const { MessageFactory, InputHints } = require('botbuilder');
+const { MessageFactory, InputHints, CardFactory } = require('botbuilder');
 const { LuisRecognizer } = require('botbuilder-ai');
 const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
+const StatsCard = require('../bots/resources/statsCard.json');
 
 const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
 
@@ -147,8 +148,14 @@ class MainDialog extends ComponentDialog {
             const result = stepContext.result.statistics;
             await handleCovidWrongInput(result);
             if (result.stats) {
-                const msg = `Latest COVID-19 statistics for **${ convertToTitleCase(result.name) }**  ==> **confirmed cases: ${ result.stats.confirmed }** || **Deaths: ${ result.stats.deaths }** || **Recoveries: ${ result.stats.recovered }**.`;
-                await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
+                const date = (result.stats.lastupdate ? result.stats.lastupdate : new Date().toLocaleDateString());
+                StatsCard.body[0].text = `Corona Virus Statistics for ${ result.name }`;
+                StatsCard.body[1].columns[0].items[0].text = `Last updated ${ new Date(date.split('T')[0]).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }`;
+                StatsCard.body[2].columns[0].items[1].text = `${ result.stats.confirmed }`;
+                StatsCard.body[2].columns[0].items[3].text = `${ result.stats.recovered }`;
+                StatsCard.body[2].columns[0].items[5].text = `${ result.stats.deaths }`;
+                const statsCard = CardFactory.adaptiveCard(StatsCard);
+                await stepContext.context.sendActivity({ attachments: [statsCard] });
             }
         }
 

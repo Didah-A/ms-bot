@@ -47,15 +47,20 @@ class Covid19Dialog extends CancelAndHelpDialog {
         try {
             const countryDetails = stepContext.options;
             countryDetails.name = stepContext.result;
+            const GetStatistics = new Covid19API();
 
             if (stepContext.result.toLowerCase() === 'usa') { countryDetails.name = 'United States of America'; }
+            if (stepContext.result.toLowerCase() === 'all') {
+                countryDetails.name = 'the world';
+                countryDetails.stats = await GetStatistics.getCovid19Stat();
+                return await stepContext.next(countryDetails.stats);
+            } else {
+                const countryCode = countries.get(countryDetails.name.toLowerCase());
 
-            const countryCode = countries.get(countryDetails.name.toLowerCase());
-
-            /* Capture the results of the previous step */
-            const GetStatistics = new Covid19API();
-            countryDetails.stats = await GetStatistics.getCovid19StatsByCountry(countryCode);
-            return await stepContext.next(countryDetails.stats);
+                /* Capture the results of the previous step */
+                countryDetails.stats = await GetStatistics.getCovid19StatsByCountry(countryCode);
+                return await stepContext.next(countryDetails.stats);
+            }
         } catch {
             const didntUnderstandMessageText = 'Sorry, I couldn\'t find that. Please enter a valid full Country name';
             await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
