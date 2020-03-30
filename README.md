@@ -1,8 +1,8 @@
-# Demo
-[link](https://webchat.botframework.com/embed/didah/gemini?b=didah&s=Xa1OncAYinE._zg9HuSkUAYCVCnc6yxlPmjNihvzEKNGcDU1e9UXen4&username=You)
 
-# Weather Bot
-This a weather Bot that shows the weather for any city in the world.
+view the bot [here](https://webchat.botframework.com/embed/didah?s=26kGR_R81uY.v3IowE4WMVIG0R1KVVJuuATF58OSbvbXo46vsFazjyQ)
+
+# Covid-19 statistics and Weather updates Bot
+This a Covid-19 statistics and Weather updates Bot.
 
 - It has been created using [Bot Framework](https://dev.botframework.com), it shows how to:
 - Use [LUIS](https://www.luis.ai) to implement core AI capabilities
@@ -12,8 +12,7 @@ This a weather Bot that shows the weather for any city in the world.
 - Demonstrate how to handle any unexpected errors
 
 ## screenshots
-![Screenshot 2020-03-12 at 17 17 12](https://user-images.githubusercontent.com/25657649/76530822-581dd700-6485-11ea-8db3-58b0efffe14f.png)
-
+![Screenshot 2020-03-29 at 14 13 33](https://user-images.githubusercontent.com/25657649/77847670-8f9bbb80-71c7-11ea-8867-373163ac5310.png)
 
 ## Prerequisites
 - [Node.js](https://nodejs.org) version 10.14 or higher
