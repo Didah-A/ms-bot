@@ -5,7 +5,7 @@
           "type": "TextBlock",
           "weight": "bolder",
           "text": "Corona Virus Statistics for Kenya",
-          "spacing": "medium",
+          "spacing": "none",
           "height": "stretch",
           "size": "medium",
           "color": "accent"
@@ -41,8 +41,8 @@
                       {
                           "type": "TextBlock",
                           "text": "Confirmed Cases:",
-                          "weight": "bolder",
-                          "separator": true
+                          "separator": true,
+                          "weight": "Bolder"
                       },
                       {
                           "type": "TextBlock",
@@ -52,10 +52,10 @@
                       {
                           "type": "TextBlock",
                           "text": "Recoveries:",
-                          "weight": "bolder",
                           "separator": true,
                           "color": "Good",
-                          "horizontalAlignment": "Center"
+                          "horizontalAlignment": "Center",
+                          "weight": "Bolder"
                       },
                       {
                           "type": "TextBlock",
@@ -67,10 +67,11 @@
                       {
                           "type": "TextBlock",
                           "text": "Deaths: ",
-                          "weight": "bolder",
                           "separator": true,
                           "color": "Attention",
-                          "horizontalAlignment": "Right"
+                          "horizontalAlignment": "Right",
+                          "height": "stretch",
+                          "weight": "Bolder"
                       },
                       {
                           "type": "TextBlock",
@@ -85,5 +86,6 @@
       }
   ],
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "version": "1.0"
+  "version": "1.0",
+  "minHeight": "60px"
 }
