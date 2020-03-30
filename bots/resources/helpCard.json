@@ -2,33 +2,68 @@
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "type": "AdaptiveCard",
   "version": "1.0",
-  "backgroundImage":"https://res.cloudinary.com/dcfljmapo/image/upload/v1584015592/botback_wyqbp5.png",
+  "backgroundImage": "https://res.cloudinary.com/dcfljmapo/image/upload/v1584015592/botback_wyqbp5.png",
   "body": [
-    {
-      "type": "TextBlock",
-      "spacing": "medium",
-      "size": "default",
-      "weight": "bolder",
-      "color": "accent",
-      "text": "WEATHER BOT HELPER",
-      "wrap": true,
-      "maxLines": 0
-    },
-    {
-      "type": "TextBlock",
-      "size": "default",
-      "isSubtle": true,
-      "text": "For the best results try the utterances below",
-      "wrap": true,
-      "maxLines": 0
-    },
-    {
-      "type": "TextBlock",
-      "size": "default",
-      "isSubtle": true,
-      "text": "- _check the weather_ \r- _check the Weather for Nairobi_ \r - _Check the weather for London_ \r - _What's the forecast for Nairobi_ \r - _What's the weather for Dubai_ \r - _get me the weather forecast_",
-      "wrap": true,
-      "maxLines": 0
-    }
+      {
+          "type": "TextBlock",
+          "spacing": "Medium",
+          "size": "default",
+          "weight": "Bolder",
+          "color": "Accent",
+          "text": "Help Card",
+          "wrap": true,
+          "maxLines": 0
+      },
+      {
+          "type": "TextBlock",
+          "size": "Small",
+          "isSubtle": true,
+          "text": "For the best results try the utterances below",
+          "wrap": true,
+          "maxLines": 0,
+          "separator": true
+      },
+      {
+          "type": "ColumnSet",
+          "columns": [
+              {
+                  "type": "Column",
+                  "width": "stretch",
+                  "items": [
+                      {
+                          "type": "TextBlock",
+                          "text": "- covid-19 updates",
+                          "fontType": "Monospace"
+                      },
+                      {
+                          "type": "TextBlock",
+                          "text": "- get covid-19 statistics for Kenya",
+                          "fontType": "Monospace"
+                      },
+                      {
+                          "type": "TextBlock",
+                          "text": "- corona virus",
+                          "fontType": "Monospace"
+                      },
+                      {
+                          "type": "TextBlock",
+                          "text": "- get weather forecast",
+                          "fontType": "Monospace"
+                      },
+                      {
+                          "type": "TextBlock",
+                          "text": "- check weather",
+                          "fontType": "Monospace"
+                      },
+                      {
+                        "type": "TextBlock",
+                        "text": "- check the weather for Nairobi",
+                        "fontType": "Monospace"
+                    }
+                  ]
+              }
+          ],
+          "separator": true
+      }
   ]
 }
