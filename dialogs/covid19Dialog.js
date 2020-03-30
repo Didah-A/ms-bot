@@ -34,7 +34,7 @@ class Covid19Dialog extends CancelAndHelpDialog {
 
         if (!countryDetails.name) {
             const messageText = 'Which country do you want to search the statistics for?';
-            const msg = MessageFactory.suggestedActions(['Kenya', 'USA', 'United Kingdom', 'Italy'], messageText, InputHints.ExpectingInput);
+            const msg = MessageFactory.suggestedActions(['All', 'Kenya', 'USA', 'United Kingdom'], messageText, InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
         return await stepContext.next(countryDetails.name);

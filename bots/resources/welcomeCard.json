@@ -2,38 +2,46 @@
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "type": "AdaptiveCard",
   "version": "1.0",
-  "backgroundImage":"https://res.cloudinary.com/dcfljmapo/image/upload/v1584015689/botback_p4jbvu.png",
+  "backgroundImage": {
+      "url": "https://res.cloudinary.com/dcfljmapo/image/upload/v1584015689/botback_p4jbvu.png",
+      "verticalAlignment": "center"
+  },
   "body": [
-    {
-      "type": "Image",
-      "url": "https://res.cloudinary.com/dcfljmapo/image/upload/v1585051403/bot_qv7hvp.gif",
-      "size": "stretch"
-    },
-    {
-      "type": "TextBlock",
-      "spacing": "medium",
-      "size": "default",
-      "color":"white",
-      "weight": "bolder",
-      "text": "Covid-19 statistics and Weather updates Bot",
-      "wrap": true,
-      "maxLines": 0
-    },
-    {
-      "type": "TextBlock",
-      "size": "default",
-      "isSubtle": true,
-      "text": "Welcome to the world updates bot, It is built using microsoft Bot Framework. The bot can help you get the corona virus statistics for any country and the weather for any city in the world.",
-      "wrap": true,
-      "maxLines": 0
-    }
+      {
+          "type": "Image",
+          "url": "https://res.cloudinary.com/dcfljmapo/image/upload/v1585051403/bot_qv7hvp.gif",
+          "size": "large",
+          "horizontalAlignment": "center"
+      },
+      {
+          "type": "TextBlock",
+          "spacing": "Medium",
+          "size": "default",
+          "color": "white",
+          "weight": "Bolder",
+          "text": "Covid-19 statistics and Weather updates Bot",
+          "wrap": true,
+          "maxLines": 0,
+          "horizontalAlignment": "Center",
+          "separator": true
+      },
+      {
+          "type": "TextBlock",
+          "size": "Small",
+          "isSubtle": true,
+          "text": "Welcome to the world updates bot. The bot can help you get the corona virus statistics for any country and the weather for any city in the world.",
+          "maxLines": 0,
+          "horizontalAlignment": "Center",
+          "separator": true,
+          "wrap": true
+      }
   ],
   "actions": [
-    {
-      "type": "Action.OpenUrl",
-      "title": "View my Professional portfolio",
-      "url": "https://www.didacusodhiambo.com",
-      "color": "good"
-    }
+      {
+          "type": "Action.OpenUrl",
+          "title": "View my Professional portfolio",
+          "url": "https://www.didacusodhiambo.com",
+          "color": "good"
+      }
   ]
 }
