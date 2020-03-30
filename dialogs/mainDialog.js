@@ -164,6 +164,8 @@ class MainDialog extends ComponentDialog {
                 StatsCard.body[2].columns[0].items[5].text = `${ result.stats.deaths }`;
                 const statsCard = CardFactory.adaptiveCard(StatsCard);
                 await stepContext.context.sendActivity({ attachments: [statsCard] });
+                const msg = `**Confirmed cases:** ${ result.stats.confirmed }  ||  **Deaths:** ${ result.stats.deaths }  ||  **Recoveries:** ${ result.stats.recovered }`;
+                await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
             }
         }
 

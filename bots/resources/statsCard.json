@@ -6,8 +6,8 @@
           "weight": "bolder",
           "text": "Corona Virus Statistics for Kenya",
           "spacing": "none",
-          "height": "stretch",
           "size": "medium",
+          "wrap": true,
           "color": "accent"
       },
       {
