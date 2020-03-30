@@ -111,9 +111,13 @@ class MainDialog extends ComponentDialog {
             return await stepContext.beginDialog('helpDialog', {});
         }
 
+        case 'greeting' : {
+            return await stepContext.replaceDialog(this.initialDialogId, { restartMsg: 'Hi, what can I do for you? 🙂' });
+        }
+
         default: {
             /* Catch all for unhandled intents */
-            const didntUnderstandMessageText = 'Sorry, I didn\'t get that. Please try asking in a different way eg, "check weather, check the weather for Nairobi"';
+            const didntUnderstandMessageText = 'Sorry, I didn\'t get that. Please try asking in a different way eg, "covid-19, check the weather for Nairobi or help"';
             await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
         }
         }
