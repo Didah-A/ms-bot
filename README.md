@@ -1,5 +1,7 @@
 
-view the bot [here](https://webchat.botframework.com/embed/didah?s=26kGR_R81uY.v3IowE4WMVIG0R1KVVJuuATF58OSbvbXo46vsFazjyQ)
+view the bot - [https://covid-19-bot.netlify.com/](https://covid-19-bot.netlify.com/)
+
+or using the messenger - [m.me/Covid19Bot254](m.me/Covid19Bot254)
 
 # Covid-19 statistics and Weather updates Bot
 This a Covid-19 statistics and Weather updates Bot.
@@ -12,7 +14,12 @@ This a Covid-19 statistics and Weather updates Bot.
 - Demonstrate how to handle any unexpected errors
 
 ## screenshots
-![Screenshot 2020-03-29 at 14 13 33](https://user-images.githubusercontent.com/25657649/77847670-8f9bbb80-71c7-11ea-8867-373163ac5310.png)
+
+<img width="698" alt="Screenshot 2020-04-02 at 14 55 34" src="https://user-images.githubusercontent.com/25657649/78246760-58444c00-74f2-11ea-8830-82219faabd62.png">
+
+<img width="688" alt="Screenshot 2020-04-02 at 14 55 48" src="https://user-images.githubusercontent.com/25657649/78246782-61cdb400-74f2-11ea-928f-e114fe11f26f.png">
+
+<img width="689" alt="Screenshot 2020-04-02 at 14 57 31" src="https://user-images.githubusercontent.com/25657649/78246820-6db97600-74f2-11ea-8e5e-c03dd0fc9357.png">
 
 ## Prerequisites
 - [Node.js](https://nodejs.org) version 10.14 or higher
